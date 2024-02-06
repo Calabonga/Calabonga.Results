@@ -1,29 +1,38 @@
 ﻿namespace Calabonga.Results
 {
+    /// <summary>
+    /// Operation results extensions
+    /// </summary>
     public static class Operation
     {
+        /// <summary>
+        /// Returns default <see cref="SuccessResult"/>
+        /// </summary>
         public static SuccessResult SuccessResult { get; } = new SuccessResult();
 
         /// <summary>
-        /// Create "Success" Status or Operation
+        /// Create <see cref="SuccessResult"/>
         /// </summary>
-        public static SuccessResult Success() => SuccessResult;
+        public static SuccessResult Result() => SuccessResult;
 
         /// <summary>
-        /// Create "Success" Status or Operation
+        /// Create <see cref="SuccessResult"/> with generic result
         /// </summary>
-        public static SuccessResult<TResult> Success<TResult>(TResult result) => new SuccessResult<TResult>(result);
+        public static SuccessResult<T> Result<T>(T result) => new SuccessResult<T>(result);
 
+        /// <summary>
+        /// Returns default 
+        /// </summary>
         public static ErrorResult ErrorResult { get; } = new ErrorResult();
 
         /// <summary>
-        /// Create "Error" Status or Operation
+        /// Returns <see cref="ErrorResult"/>
         /// </summary>
         public static ErrorResult Error() => ErrorResult;
 
         /// <summary>
-        /// Create "Error" Status or Operation
+        /// Create <see cref="ErrorResult"/> for operation
         /// </summary>
-        public static ErrorResult<TError> Error<TError>(TError error) => new ErrorResult<TError>(error);
+        public static ErrorResult<T> Error<T>(T error) => new ErrorResult<T>(error);
     }
 }

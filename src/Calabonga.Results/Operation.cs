@@ -1,192 +1,203 @@
 ﻿namespace Calabonga.Results
 {
     /// <summary>
-    /// Result of operation
+    /// The operation with some Result
     /// </summary>
-    /// <typeparam name="TResult">Type of Value field</typeparam>
-    public readonly struct Operation<TResult>
+    /// <typeparam name="T">Type of Result field</typeparam>
+    public readonly struct Operation<T>
     {
-        public TResult Result { get; }
+        /// <summary>
+        /// Operation result
+        /// </summary>
+        public T Result { get; }
 
-        public bool Success { get; }
+        /// <summary>
+        /// Indicate is operation succeed
+        /// </summary>
+        public bool Ok { get; }
 
-        private Operation(bool isSuccess)
+        private Operation(bool isOk)
         {
-            Success = isSuccess;
+            Ok = isOk;
             Result = default!;
         }
 
-        private Operation(TResult result)
+        private Operation(T result)
         {
-            Success = true;
+            Ok = true;
             Result = result;
         }
 
-        public static implicit operator bool(Operation<TResult> result) => result.Success;
+        public static implicit operator bool(Operation<T> result) => result.Ok;
 
-        public static implicit operator Operation<TResult>(TResult result) => new Operation<TResult>(result);
+        public static implicit operator Operation<T>(T result) => new Operation<T>(result);
 
-        public static implicit operator Operation<TResult>(SuccessResult<TResult> result) => new Operation<TResult>(result.Value);
+        public static implicit operator Operation<T>(SuccessResult<T> result) => new Operation<T>(result.Result);
 
-        private static readonly Operation<TResult> _error = new Operation<TResult>(false);
+        private static readonly Operation<T> Error = new Operation<T>(false);
 
-        public static implicit operator Operation<TResult>(ErrorResult result) => _error;
+        public static implicit operator Operation<T>(ErrorResult result) => Error;
     }
 
     /// <summary>
-    /// Operation of operation with one Error
+    /// The operation with some Result and with one error
     /// </summary>
-    /// <typeparam name="TResult">Type of Value field</typeparam>
-    /// <typeparam name="TError">Type of Error field</typeparam>
-    public readonly struct Operation<TResult, TError>
+    /// <typeparam name="T">Type of Result field</typeparam>
+    /// <typeparam name="T1">Type of Error field</typeparam>
+    public readonly struct Operation<T, T1>
     {
-        public readonly TResult Value;
-        public readonly TError Error;
+        /// <summary>
+        /// Operation error
+        /// </summary>
+        public readonly T1 Error;
 
+        /// <summary>
+        /// Operation result
+        /// </summary>
+        public T Result { get; }
+
+        /// <summary>
+        /// Indicate is operation succeed
+        /// </summary>
         public bool Ok { get; }
 
-        private Operation(TResult result)
+        private Operation(T result)
         {
             Ok = true;
-            Value = result;
+            Result = result;
             Error = default!;
         }
 
-        private Operation(TError error)
+        private Operation(T1 error)
         {
             Ok = false;
-            Value = default!;
+            Result = default!;
             Error = error;
         }
 
-        public void Deconstruct(out TResult result, out TError error)
+        public void Deconstruct(out T result, out T1 error)
         {
-            result = Value;
+            result = Result;
             error = Error;
         }
 
-        public static implicit operator bool(Operation<TResult, TError> result) => result.Ok;
+        public static implicit operator bool(Operation<T, T1> result) => result.Ok;
 
-        public static implicit operator Operation<TResult, TError>(TResult result) => new Operation<TResult, TError>(result);
+        public static implicit operator Operation<T, T1>(T result) => new Operation<T, T1>(result);
 
-        public static implicit operator Operation<TResult, TError>(SuccessResult<TResult> result) => new Operation<TResult, TError>(result.Value);
+        public static implicit operator Operation<T, T1>(SuccessResult<T> result) => new Operation<T, T1>(result.Result);
 
-        public static implicit operator Operation<TResult, TError>(ErrorResult<TError> result) => new Operation<TResult, TError>(result.Error);
+        public static implicit operator Operation<T, T1>(ErrorResult<T1> result) => new Operation<T, T1>(result.Error);
     }
 
     /// <summary>
-    /// Operation of operation with two different Errors
+    /// The operation with some Result and with two different errors
     /// </summary>
-    /// <typeparam name="TResult">Type of Value field</typeparam>
-    /// <typeparam name="TError1">Type of first Error</typeparam>
-    /// <typeparam name="TError2">Type of second Error</typeparam>
-    public readonly struct Operation<TResult, TError1, TError2>
+    /// <typeparam name="T">Type of Result field</typeparam>
+    /// <typeparam name="T1">Type of first Error</typeparam>
+    /// <typeparam name="T2">Type of second Error</typeparam>
+    public readonly struct Operation<T, T1, T2>
     {
-
-        public readonly TResult Value;
+        /// <summary>
+        /// Operation error
+        /// </summary>
         public readonly object? Error;
 
+        /// <summary>
+        /// Operation result
+        /// </summary>
+        public T Result { get; }
+
+        /// <summary>
+        /// Indicate is operation succeed
+        /// </summary>
         public bool Ok { get; }
 
-        public bool HasError<TError>() => Error is TError;
-
-        public TError GetError<TError>()
-        {
-            if (Error is null)
-            {
-                return (TError)Error!;
-            }
-
-            return default!;
-        }
-
-        private Operation(TResult result)
+        private Operation(T result)
         {
             Ok = true;
-            Value = result;
+            Result = result;
             Error = null;
         }
 
         private Operation(object error)
         {
             Ok = false;
-            Value = default!;
+            Result = default!;
             Error = error;
         }
 
-        public void Deconstruct(out TResult result, out object? error)
+        public void Deconstruct(out T result, out object? error)
         {
-            result = Value;
+            result = Result;
             error = Error;
         }
 
-        public static implicit operator bool(Operation<TResult, TError1, TError2> result) => result.Ok;
+        public static implicit operator bool(Operation<T, T1, T2> result) => result.Ok;
 
-        public static implicit operator Operation<TResult, TError1, TError2>(TResult result) => new Operation<TResult, TError1, TError2>(result);
+        public static implicit operator Operation<T, T1, T2>(T result) => new Operation<T, T1, T2>(result);
 
-        public static implicit operator Operation<TResult, TError1, TError2>(SuccessResult<TResult> result) => new Operation<TResult, TError1, TError2>(result.Value);
+        public static implicit operator Operation<T, T1, T2>(SuccessResult<T> result) => new Operation<T, T1, T2>(result.Result);
 
-        public static implicit operator Operation<TResult, TError1, TError2>(ErrorResult<TError1> result) => new Operation<TResult, TError1, TError2>(result.Error!);
+        public static implicit operator Operation<T, T1, T2>(ErrorResult<T1> result) => new Operation<T, T1, T2>(result.Error!);
 
-        public static implicit operator Operation<TResult, TError1, TError2>(ErrorResult<TError2> result) => new Operation<TResult, TError1, TError2>(result.Error!);
+        public static implicit operator Operation<T, T1, T2>(ErrorResult<T2> result) => new Operation<T, T1, T2>(result.Error!);
     }
 
     /// <summary>
-    /// Operation of operation (with different Errors)
+    /// The operation with some Result and with three different errors
     /// </summary>
-    /// <typeparam name="TResult">Type of Value field</typeparam>
-    /// <typeparam name="TError1">Type of first Error</typeparam>
-    /// <typeparam name="TError2">Type of second Error</typeparam>
-    /// <typeparam name="TError3">Type of third Error</typeparam>
-    public readonly struct Operation<TResult, TError1, TError2, TError3>
+    /// <typeparam name="T">Type of Result field</typeparam>
+    /// <typeparam name="T1">Type of first Error</typeparam>
+    /// <typeparam name="T2">Type of second Error</typeparam>
+    /// <typeparam name="T3">Type of third Error</typeparam>
+    public readonly struct Operation<T, T1, T2, T3>
     {
-        public readonly TResult Value;
+        /// <summary>
+        /// Operation error
+        /// </summary>
         public readonly object? Error;
 
+        /// <summary>
+        /// Operation result
+        /// </summary>
+        public T Result { get; }
+
+        /// <summary>
+        /// Indicate is operation succeed
+        /// </summary>
         public bool Ok { get; }
 
-        public bool HasError<TError>() => Error is TError;
-
-        public TError GetError<TError>()
-        {
-            if (Error is null)
-            {
-                return (TError)Error!;
-            }
-
-            return default!;
-        }
-
-        private Operation(TResult result)
+        private Operation(T result)
         {
             Ok = true;
-            Value = result;
+            Result = result;
             Error = null;
         }
 
         private Operation(object error)
         {
             Ok = false;
-            Value = default!;
+            Result = default!;
             Error = error;
         }
 
-        public void Deconstruct(out TResult result, out object? error)
+        public void Deconstruct(out T result, out object? error)
         {
-            result = Value;
+            result = Result;
             error = Error;
         }
 
-        public static implicit operator bool(Operation<TResult, TError1, TError2, TError3> operation) => operation.Ok;
+        public static implicit operator bool(Operation<T, T1, T2, T3> operation) => operation.Ok;
 
-        public static implicit operator Operation<TResult, TError1, TError2, TError3>(TResult result) => new Operation<TResult, TError1, TError2, TError3>(result);
+        public static implicit operator Operation<T, T1, T2, T3>(T result) => new Operation<T, T1, T2, T3>(result);
 
-        public static implicit operator Operation<TResult, TError1, TError2, TError3>(SuccessResult<TResult> result) => new Operation<TResult, TError1, TError2, TError3>(result.Value);
+        public static implicit operator Operation<T, T1, T2, T3>(SuccessResult<T> result) => new Operation<T, T1, T2, T3>(result.Result);
 
-        public static implicit operator Operation<TResult, TError1, TError2, TError3>(ErrorResult<TError1> result) => new Operation<TResult, TError1, TError2, TError3>(result);
+        public static implicit operator Operation<T, T1, T2, T3>(ErrorResult<T1> result) => new Operation<T, T1, T2, T3>(result);
 
-        public static implicit operator Operation<TResult, TError1, TError2, TError3>(ErrorResult<TError2> result) => new Operation<TResult, TError1, TError2, TError3>(result.Error);
+        public static implicit operator Operation<T, T1, T2, T3>(ErrorResult<T2> result) => new Operation<T, T1, T2, T3>(result.Error);
 
-        public static implicit operator Operation<TResult, TError1, TError2, TError3>(ErrorResult<TError3> result) => new Operation<TResult, TError1, TError2, TError3>(result.Error);
+        public static implicit operator Operation<T, T1, T2, T3>(ErrorResult<T3> result) => new Operation<T, T1, T2, T3>(result.Error);
     }
 }

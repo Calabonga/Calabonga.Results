@@ -1,0 +1,40 @@
+name: .NET Core 6.0.x
+
+on:
+  push:
+    branches: [master]
+  
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Install dependencies
+        run: dotnet restore src/Calabonga.Results.sln
+
+      - name: Build the NuGet package
+        run: dotnet build src/Calabonga.Results.sln --configuration Release --output ${{env.DOTNET_ROOT}}\Package
+
+      - run: ls src
+      
+      - run: ls src/Calabonga.Results
+      
+      - run: ls ${{env.DOTNET_ROOT}}\Package
+
+      - name: Run Unit Tests
+        run: dotnet test src/Calabonga.Results.Tests/Calabonga.Results.Tests.csproj
+
+      - name: Publish NuGet Package Calabonga.Results
+        run: dotnet nuget push ${{env.DOTNET_ROOT}}\Package\*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate

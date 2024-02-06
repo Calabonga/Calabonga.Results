@@ -1,13 +1,11 @@
 ﻿namespace Calabonga.Results
 {
-    public struct ErrorResult<TError>
-    {
-        internal readonly TError Error;
+    public struct ErrorResult { }
 
-        internal ErrorResult(TError error) => Error = error;
-    }
-
-    public struct ErrorResult
+    public struct ErrorResult<T>
     {
+        internal readonly T Error;
+
+        internal ErrorResult(T error) => Error = error;
     }
 }
