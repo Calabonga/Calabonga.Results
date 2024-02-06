@@ -65,6 +65,18 @@ public class OperationResultTests : IClassFixture<ResultFixture>
     }
 
     [Fact]
+    public void ItShould_ReturnsErrorMessage_WhenParamsLessThan0()
+    {
+        // arrange
+        var sut = _fixture.GetIntGreaterThenZeroOrError(-1);
+
+        // act
+
+        // assert
+        Assert.Equal("Error", sut.Error);
+    }
+
+    [Fact]
     public void ItShouldNot_ReturnsErrorMessage_WhenParamsEqual0()
     {
         // arrange
@@ -74,7 +86,6 @@ public class OperationResultTests : IClassFixture<ResultFixture>
         // act
 
         // assert
-        Assert.NotEqual(expected, sut);
-        Assert.Equal("Error", sut.Error);
+        Assert.Equal(expected, sut);
     }
 }
