@@ -9,14 +9,14 @@ public class ResultFixture
             return Operation.Error("Some error");
         }
 
-        return Operation.Success(person);
+        return Operation.Result(person);
     }
 
     internal Operation<int, string> GetIntGreaterThenZeroOrError(int selectMode)
     {
         if (selectMode >= 0)
         {
-            return Operation.Success(selectMode);
+            return Operation.Result(selectMode);
         }
 
         return Operation.Error("Error");
@@ -30,7 +30,7 @@ public class ResultFixture
         }
         if (arg == 200)
         {
-            return Operation.Success(arg);
+            return Operation.Result(arg);
         }
         if (arg == 300)
         {
