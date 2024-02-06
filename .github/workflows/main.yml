@@ -2,7 +2,7 @@ name: .NET Core 6.0.x
 
 on:
   push:
-    branches: [master]
+    branches: [main]
   
   workflow_dispatch:
 
