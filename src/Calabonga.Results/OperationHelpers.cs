@@ -8,7 +8,7 @@
         /// <summary>
         /// Returns default <see cref="SuccessResult"/>
         /// </summary>
-        public static SuccessResult SuccessResult { get; } = new SuccessResult();
+        internal static SuccessResult SuccessResult { get; } = new SuccessResult();
 
         /// <summary>
         /// Create <see cref="SuccessResult"/>
@@ -23,7 +23,7 @@
         /// <summary>
         /// Returns default 
         /// </summary>
-        public static ErrorResult ErrorResult { get; } = new ErrorResult();
+        internal static ErrorResult ErrorResult { get; } = new ErrorResult();
 
         /// <summary>
         /// Returns <see cref="ErrorResult"/>
