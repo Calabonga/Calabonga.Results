@@ -88,4 +88,33 @@ public class OperationResultTests : IClassFixture<ResultFixture>
         // assert
         Assert.Equal(expected, sut);
     }
+
+    [Fact]
+    public void ItShould_ReturnSuccessWithPerson()
+    {
+        // arrange
+        const string expected = "FirstName";
+        var sut = _fixture.GetSuccessResultWithPerson(new Person() { FirstName = expected });
+
+        // act
+        var actual = sut.Result.FirstName;
+
+        // assert
+        Assert.True(sut.Ok);
+        Assert.Equal(expected, actual);
+    }
+
+
+    [Fact]
+    public void ItShould_ReturnError_WhenPersonIsNull()
+    {
+        // arrange
+        var sut = _fixture.GetSuccessResultWithPerson(null);
+
+        // act
+
+        // assert
+        Assert.False(sut.Ok);
+        Assert.NotNull(sut.Error);
+    }
 }

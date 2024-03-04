@@ -2,7 +2,7 @@
 
 public class ResultFixture
 {
-    internal Operation<Person, string> GetIntOrError(Person? person)
+    internal Operation<Person, string> GetSuccessResultWithPerson(Person? person)
     {
         if (person is null)
         {
