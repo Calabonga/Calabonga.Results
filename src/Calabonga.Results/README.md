@@ -9,7 +9,7 @@ Some helpful Results as an implementation of RFC7807. In other words, it's simpl
 
 ## Version history
 
-### 2024-02-06 v1.0.0
+### 2024-02-06 v1.0.2
 
 * First release
 * Summaries added
