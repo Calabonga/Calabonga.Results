@@ -5,7 +5,7 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Title>Calabonga.Results</Title>
-		<Version>1.0.2</Version>
+		<Version>1.1.0</Version>
 		<Authors>Calabonga</Authors>
 		<Company>Calabonga SOFT</Company>
 		<Product></Product>
@@ -17,11 +17,12 @@
 		<RepositoryUrl>https://github.com/Calabonga/Calabonga.Results</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>calabonga web api operation result different types rfc7807 aspnetcore backend</PackageTags>
-		<PackageReleaseNotes>Redundant Operation properties are hided using an internal modifier. Some unit-tests added.</PackageReleaseNotes>
+		<PackageReleaseNotes>Root namespace renamed from Calabonga.Results to Calabonga.OperationResults</PackageReleaseNotes>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageId></PackageId>
 		<PackageIconUrl>https://www.calabonga.net/images/logo.png</PackageIconUrl>
 		<IncludeSymbols>False</IncludeSymbols>
+		<RootNamespace>Calabonga.OperationResults</RootNamespace>
 	</PropertyGroup>
 
 	<ItemGroup>

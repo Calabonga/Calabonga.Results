@@ -1,10 +1,13 @@
-﻿namespace Calabonga.Results
+﻿namespace Calabonga.OperationResults
 {
     /// <summary>
     /// OperationEmpty of operation (without Result and Error fields)
     /// </summary>
     public struct OperationEmpty
     {
+        /// <summary>
+        /// Indicate that operation successfully completed
+        /// </summary>
         public bool Ok { get; }
 
         private OperationEmpty(bool ok)
@@ -40,6 +43,9 @@
     {
         public readonly T Error;
 
+        /// <summary>
+        /// Indicate that operation successfully completed
+        /// </summary>
         public bool Ok { get; }
 
         private OperationEmpty(bool ok)
@@ -81,6 +87,9 @@
     {
         public readonly object? Error;
 
+        /// <summary>
+        /// Indicate that operation successfully completed
+        /// </summary>
         public bool Ok { get; }
 
         private OperationEmpty(bool ok)
@@ -128,6 +137,9 @@
     {
         public readonly object? Error;
 
+        /// <summary>
+        /// Indicate that operation successfully completed
+        /// </summary>
         public bool Ok { get; }
 
 

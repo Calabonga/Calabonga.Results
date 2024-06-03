@@ -1,4 +1,4 @@
-﻿namespace Calabonga.Results
+﻿namespace Calabonga.OperationResults
 {
     /// <summary>
     /// The operation with some Result

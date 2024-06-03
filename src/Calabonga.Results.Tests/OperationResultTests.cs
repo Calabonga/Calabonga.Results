@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using Calabonga.OperationResults;
+using Xunit;
 
 namespace Calabonga.Results.Tests;
 

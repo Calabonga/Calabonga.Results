@@ -1,4 +1,6 @@
-﻿namespace Calabonga.Results.Tests;
+﻿using Calabonga.OperationResults;
+
+namespace Calabonga.Results.Tests;
 
 public class ResultFixture
 {
