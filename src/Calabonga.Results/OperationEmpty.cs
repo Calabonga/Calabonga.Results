@@ -81,9 +81,9 @@
     /// <summary>
     /// OperationEmpty of operation (without Result but with different Errors)
     /// </summary>
-    /// <typeparam name="T">Type of first Error</typeparam>
-    /// <typeparam name="T1">Type of second Error</typeparam>
-    public readonly struct OperationEmpty<T, T1>
+    /// <typeparam name="TError1">Type of first Error</typeparam>
+    /// <typeparam name="TError2">Type of second Error</typeparam>
+    public readonly struct OperationEmpty<TError1, TError2>
     {
         public readonly object? Error;
 
@@ -104,26 +104,26 @@
             Error = error;
         }
 
-        public static implicit operator bool(OperationEmpty<T, T1> operationEmpty)
+        public static implicit operator bool(OperationEmpty<TError1, TError2> operationEmpty)
         {
             return operationEmpty.Ok;
         }
 
-        private static readonly OperationEmpty<T, T1> Result = new OperationEmpty<T, T1>(true);
+        private static readonly OperationEmpty<TError1, TError2> Result = new OperationEmpty<TError1, TError2>(true);
 
-        public static implicit operator OperationEmpty<T, T1>(SuccessResult result)
+        public static implicit operator OperationEmpty<TError1, TError2>(SuccessResult result)
         {
             return Result;
         }
 
-        public static implicit operator OperationEmpty<T, T1>(ErrorResult<T> result)
+        public static implicit operator OperationEmpty<TError1, TError2>(ErrorResult<TError1> result)
         {
-            return new OperationEmpty<T, T1>(result.Error!);
+            return new OperationEmpty<TError1, TError2>(result.Error!);
         }
 
-        public static implicit operator OperationEmpty<T, T1>(ErrorResult<T1> result)
+        public static implicit operator OperationEmpty<TError1, TError2>(ErrorResult<TError2> result)
         {
-            return new OperationEmpty<T, T1>(result.Error!);
+            return new OperationEmpty<TError1, TError2>(result.Error!);
         }
     }
 
