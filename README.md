@@ -7,6 +7,14 @@
 ## English
 Some helpful Results as an implementation of RFC7807. In other words, it's simple wrapper for result operation for any returned data from API backend implemented on Rust-style approach.
 
+## Разработка
+
+Патч-версия пакета (`<Version>` в `src/Calabonga.Results/Calabonga.Results.csproj`) увеличивается на 1 автоматически при каждом коммите, затрагивающем `src/Calabonga.Results/` — git-хук `.githooks/pre-commit`. Активируется один раз на клоне:
+
+```bash
+git config core.hooksPath .githooks
+```
+
 ## Version history
 
 ### 2024-03-04 v1.0.1
