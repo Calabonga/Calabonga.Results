@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# Bumps the patch component of <Version> in Calabonga.Results.csproj on every commit
+# and stages the change so it becomes part of the same commit.
+#
+# Enable once per clone with:
+#   git config core.hooksPath .githooks
+set -euo pipefail
+
+CSPROJ="src/Calabonga.Results/Calabonga.Results.csproj"
+
+if [ ! -f "$CSPROJ" ]; then
+    exit 0
+fi
+
+current_version=$(sed -n 's/.*<Version>\([^<]*\)<\/Version>.*/\1/p' "$CSPROJ" | head -n1)
+
+if [ -z "$current_version" ]; then
+    echo "pre-commit: <Version> not found in $CSPROJ, skipping version bump" >&2
+    exit 0
+fi
+
+major=$(echo "$current_version" | cut -d. -f1)
+minor=$(echo "$current_version" | cut -d. -f2)
+patch=$(echo "$current_version" | cut -d. -f3)
+
+if ! [[ "$major" =~ ^[0-9]+$ && "$minor" =~ ^[0-9]+$ && "$patch" =~ ^[0-9]+$ ]]; then
+    echo "pre-commit: unexpected version format '$current_version' in $CSPROJ, skipping version bump" >&2
+    exit 0
+fi
+
+new_version="$major.$minor.$((patch + 1))"
+
+sed -i "s|<Version>$current_version</Version>|<Version>$new_version</Version>|" "$CSPROJ"
+git add "$CSPROJ"
+
+echo "pre-commit: Calabonga.Results version bumped $current_version -> $new_version"
