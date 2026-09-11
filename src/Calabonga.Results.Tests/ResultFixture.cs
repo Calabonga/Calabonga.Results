@@ -40,4 +40,21 @@ public class ResultFixture
         }
         return Operation.Error("Invalid Operation");
     }
+
+    internal Operation<int, string, CustomException, InnerCustomException> GetResultOrOneOfThreeErrors(int arg)
+    {
+        if (arg == 100)
+        {
+            return arg;
+        }
+        if (arg == 200)
+        {
+            return Operation.Error("Invalid Operation");
+        }
+        if (arg == 300)
+        {
+            return Operation.Error(new CustomException("Custom exception"));
+        }
+        return Operation.Error(new InnerCustomException());
+    }
 }
