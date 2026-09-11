@@ -194,10 +194,10 @@
 
         public static implicit operator Operation<T, T1, T2, T3>(SuccessResult<T> result) => new Operation<T, T1, T2, T3>(result.Result);
 
-        public static implicit operator Operation<T, T1, T2, T3>(ErrorResult<T1> result) => new Operation<T, T1, T2, T3>(result.Error);
+        public static implicit operator Operation<T, T1, T2, T3>(ErrorResult<T1> result) => new Operation<T, T1, T2, T3>(result.Error!);
 
-        public static implicit operator Operation<T, T1, T2, T3>(ErrorResult<T2> result) => new Operation<T, T1, T2, T3>(result.Error);
+        public static implicit operator Operation<T, T1, T2, T3>(ErrorResult<T2> result) => new Operation<T, T1, T2, T3>(result.Error!);
 
-        public static implicit operator Operation<T, T1, T2, T3>(ErrorResult<T3> result) => new Operation<T, T1, T2, T3>(result.Error);
+        public static implicit operator Operation<T, T1, T2, T3>(ErrorResult<T3> result) => new Operation<T, T1, T2, T3>(result.Error!);
     }
 }
