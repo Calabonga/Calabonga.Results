@@ -9,7 +9,7 @@ Some helpful Results as an implementation of RFC7807. In other words, it's simpl
 
 ## Разработка
 
-Патч-версия пакета (`<Version>` в `src/Calabonga.Results/Calabonga.Results.csproj`) увеличивается на 1 автоматически при каждом коммите — git-хук `.githooks/pre-commit`. Активируется один раз на клоне:
+Патч-версия пакета (`<Version>` в `src/Calabonga.Results/Calabonga.Results.csproj`) увеличивается на 1 автоматически при каждом коммите, затрагивающем `src/Calabonga.Results/` — git-хук `.githooks/pre-commit`. Активируется один раз на клоне:
 
 ```bash
 git config core.hooksPath .githooks
