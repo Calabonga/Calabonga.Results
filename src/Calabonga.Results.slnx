@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Calabonga.Results.Tests/Calabonga.Results.Tests.csproj" />
+  <Project Path="Calabonga.Results/Calabonga.Results.csproj" />
+</Solution>
